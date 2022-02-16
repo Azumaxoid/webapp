@@ -15,7 +15,7 @@ class AccountService {
 
         if (rand(0, 5) == 1) {
             $hoge = [];
-            $hoge[1];
+b            $hoge[1];
             throw new ErrorException('Error');
         }
         sleep(1);
