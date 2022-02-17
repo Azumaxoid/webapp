@@ -1,10 +1,30 @@
 version: '3.7'
 
 services:
+  ma:
+    image: bitnami/mariadb
+    container_name: ma
+    environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+        - MARIADB_USER=my_user
+        - MARIADB_DATABASE=my_database
+        - MARIADB_PASSWORD=my_password
   php:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.bitnami
+      args:
+          - COMMIT_SHA='commit_sha'
+          - RELEASE_TAG='dev'
+          - NEW_RELIC_AGENT_VERSION=9.18.1.303
+          - NEW_RELIC_LICENSE_KEY=4a91dbcc8d10a3ca560b9713ba3f21e72732NRAL
+          - NEW_RELIC_APPNAME=webapp
+    image: azumax/webapp_php:bitnami
     container_name: php
     ports:
-      - "8000:8000"
+      - "3000:3000"
+    environment:
+        - DB_HOST=ma
+        - DB_USERNAME=my_user
+        - DB_DATABASE=my_database
+        - DB_PASSWORD=my_password
