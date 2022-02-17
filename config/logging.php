@@ -100,6 +100,14 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'newrelic' => [
+            'driver' => 'custom',
+            'via' => App\Logging\NewRelicLogger::class,
+            'with' => [
+                'stream' => 'php://stdout',
+            ],
+        ],
     ],
 
 ];
