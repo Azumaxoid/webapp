@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-newrelic_add_custom_parameter("tags.commit", env("NEW_RELIC_METADATA_COMMIT", "sha"));
+newrelic_add_custom_parameter("tags.commit", getenv("NEW_RELIC_METADATA_COMMIT"));
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance
