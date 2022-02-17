@@ -5,7 +5,7 @@ class AccountService {
     public function hoge()
     {
         sleep(1);
-        for($i=0; $i<5; $i++) {
+        for($i=0; $i<2; $i++) {
             self::fuga();
             echo "AccountService hoge";
         }
@@ -14,8 +14,9 @@ class AccountService {
     {
 
         if (rand(0, 5) == 1) {
+            sleep(10);
             $hoge = [];
-b            $hoge[1];
+            $hoge[1];
             throw new ErrorException('Error');
         }
         sleep(1);
