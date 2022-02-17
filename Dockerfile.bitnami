@@ -1,4 +1,4 @@
-FROM     bitnami/laravel:7.12.0
+FROM    bitnami/laravel:7.12.0
 
 USER root
 
@@ -26,3 +26,6 @@ RUN mkdir -p /var/log/newrelic/; chown bitnami:bitnami /var/log/newrelic/ -R
 COPY . /app
 RUN chown bitnami:bitnami /app -R
 USER bitnami
+
+RUN php artisan key:generate;php artisan config:clear
+
