@@ -22,7 +22,7 @@ RUN sed -i -e "s/REPLACE_WITH_REAL_KEY/${NEW_RELIC_LICENSE_KEY}/" \
     -e "s/;newrelic.labels.*/newrelic.labels = \"commit:${COMMIT_SHA}\"/" \
     -e '$anewrelic.distributed_tracing_enabled = true' \
     $(php -r "echo(PHP_CONFIG_FILE_SCAN_DIR);")/newrelic.ini;cp $(php -r "echo(PHP_CONFIG_FILE_SCAN_DIR);")/newrelic.ini /opt/bitnami/php/conf/;\
-    composer install;composer require newrelic/monolog-enricher
+    composer install;composer require newrelic/monolog-enricher:"1.0.1"
 
 RUN mkdir -p /var/log/newrelic/; chown bitnami:bitnami /var/log/newrelic/ -R
 
