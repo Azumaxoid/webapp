@@ -9,7 +9,7 @@ class AccountService {
         Log::info('hoge called', ['test' => 'test2']);
 
         sleep(1);
-        for($i=0; $i<2; $i++) {
+        for($i=0; $i<3; $i++) {
             Log::info('fuga calling', ['test' => 'test3']);
             self::fuga();
             Log::info('fuga finished', ['test' => 'test6']);

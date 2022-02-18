@@ -12,7 +12,6 @@ class HelloController extends Controller
   public function index()
   {
       Log::info('hello called', ['test' => 'test1']);
-      AccountService::hoge();
       return view('hello');
   }
 }
