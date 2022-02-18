@@ -9,7 +9,7 @@
 <a href="/welcome?user=Hanako"><button>Welcome Hanako</button></a><br />
 <a href="/welcome?user=NewRelic"><button>Welcome NewRelic</button></a><br />
 <a href="/welcome?user=Hoge"><button>Welcome Hoge</button></a><br />
-<input type="text" id="nameInput" /><a id=link href="/welcome?user=Hoge"><button id="linkButton">Welcome Hoge</button></a><br />
+<input type="text" id="nameInput" placeholder="名前を入力してボタンクリック" size="50" /><a id=link href="/welcome?user=Hoge"><button id="linkButton">Welcome Hoge</button></a><br />
 </body>
 <script>
     document.querySelector('#nameInput').onchange = ()=>{
