@@ -14,6 +14,6 @@ class WelcomeController extends Controller
       newrelic_add_custom_parameter("user", $request->input('user'));
       Log::info('welcome called', ['test' => 'test1']);
       AccountService::hoge();
-    return view('hello');
+    return view('welcome');
   }
 }

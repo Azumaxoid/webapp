@@ -21,7 +21,7 @@ class AccountService {
         Log::info('fuga called', ['test' => 'test4']);
         if (rand(0, 5) == 1) {
             Log::info('boooooooo', ['test' => 'test5']);
-            sleep(10);
+            sleep(1);
             $hoge = [];
             $hoge[1];
             throw new ErrorException('Error');
