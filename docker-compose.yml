@@ -12,7 +12,7 @@ services:
   php:
     build:
       context: .
-      dockerfile: Dockerfile.bitnami
+      dockerfile: Dockerfile.alpine
       args:
           - COMMIT_SHA='commit_sha'
           - RELEASE_TAG='dev'
