@@ -1,0 +1,33 @@
+FROM nmflabs/php:7.3-fpm-alpine-laravel
+
+COPY . /var/www/html
+
+ARG NEW_RELIC_AGENT_VERSION
+ARG NEW_RELIC_LICENSE_KEY
+ARG NEW_RELIC_APPNAME
+ARG COMMIT_SHA
+ENV NEW_RELIC_METADATA_COMMIT=$COMMIT_SHA
+
+RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
+    && sed -i -e "s/memory_limit = .*/memory_limit = -1/" /usr/local/etc/php/php.ini \
+    && curl -L https://download.newrelic.com/php_agent/archive/${NEW_RELIC_AGENT_VERSION}/newrelic-php5-${NEW_RELIC_AGENT_VERSION}-linux-musl.tar.gz | tar -C /tmp -zx \
+    && export NR_INSTALL_USE_CP_NOT_LN=1 \
+    && export NR_INSTALL_SILENT=1 \
+    && /tmp/newrelic-php5-${NEW_RELIC_AGENT_VERSION}-linux-musl/newrelic-install install \
+    && rm -rf /tmp/newrelic-php5-* /tmp/nrinstall* \
+    &&  sed -i -e "s/REPLACE_WITH_REAL_KEY/${NEW_RELIC_LICENSE_KEY}/" \
+    -e "s/newrelic.appname[[:space:]]=[[:space:]].*/newrelic.appname = \"${NEW_RELIC_APPNAME}\"/" \
+    -e 's/;newrelic.daemon.loglevel.*/newrelic.daemon.loglevel = "verbosedebug"/' \
+    -e "s/;newrelic.labels.*/newrelic.labels = \"commit:${COMMIT_SHA}\"/" \
+    -e '$anewrelic.distributed_tracing_enabled = true' \
+    $(php -r "echo(PHP_CONFIG_FILE_SCAN_DIR);")/newrelic.ini;cp $(php -r "echo(PHP_CONFIG_FILE_SCAN_DIR);")/newrelic.ini /usr/local/etc/php/conf.d/ \
+    && composer update && composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist;composer require newrelic/monolog-enricher:"1.0.1"
+
+RUN mkdir -p /var/log/newrelic/
+
+EXPOSE 3000 3000
+
+WORKDIR /var/www/html
+
+ENTRYPOINT ["php", "artisan", "serve", "--host=0.0.0.0", "--port=3000"]
+
