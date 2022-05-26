@@ -19,6 +19,7 @@ RUN cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
     -e "s/newrelic.appname[[:space:]]=[[:space:]].*/newrelic.appname = \"${NEW_RELIC_APPNAME}\"/" \
     -e 's/;newrelic.daemon.loglevel.*/newrelic.daemon.loglevel = "verbosedebug"/' \
     -e "s/;newrelic.labels.*/newrelic.labels = \"commit:${COMMIT_SHA}\"/" \
+    -e '$newrelic.transaction_tracer.detail = 1' \
     -e '$anewrelic.distributed_tracing_enabled = true' \
     $(php -r "echo(PHP_CONFIG_FILE_SCAN_DIR);")/newrelic.ini;cp $(php -r "echo(PHP_CONFIG_FILE_SCAN_DIR);")/newrelic.ini /usr/local/etc/php/conf.d/ \
     && composer update && composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist;composer require newrelic/monolog-enricher:"1.0.1"
