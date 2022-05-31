@@ -20,7 +20,7 @@ jobs:
       - name: Build the Docker image
         env:
           NEW_RELIC_LICENSE_KEY: ${{ secrets.NR_LICENSE_KEY }}
-        run: docker build . --file Dockerfile.alpine --tag azumax/webapp_php:alpine --build-arg COMMIT_SHA=`git rev-parse HEAD` --build-arg NEW_RELIC_AGENT_VERSION=9.18.1.303 --build-arg NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY} --build-arg NEW_RELIC_APPNAME=webapp; docker push azumax/webapp_php:bitnami
+        run: docker build . --file Dockerfile.alpine --tag azumax/webapp_php:alpine --build-arg COMMIT_SHA=`git rev-parse HEAD` --build-arg NEW_RELIC_AGENT_VERSION=9.18.1.303 --build-arg NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY} --build-arg NEW_RELIC_APPNAME=webapp; docker push azumax/webapp_php:alpine
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
